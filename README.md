@@ -31,6 +31,7 @@ Each game generates a unique mystery with AI-powered suspects who have realistic
 - **Multiple Difficulty Levels**: Easy, Medium, and Hard modes
 - **Real-time Analysis**: Get insights into suspect reliability and truth status
 - **Classic Detective Experience**: Interrogate, analyze, and solve the case
+- **Comprehensive Conclusion**: Complete case resolution with detailed feedback and statistics
 
 ## Quick Start
 
@@ -85,6 +86,15 @@ quit                         - End the investigation
 - **Use 'timeline'** to understand the sequence of events
 - **Use 'analysis'** to see who might be lying
 
+### Case Resolution System
+When you make an accusation, the game provides:
+- **Complete Accusation**: Specify suspect, weapon, and location
+- **Detailed Feedback**: See exactly what you got right or wrong
+- **Truth Revelation**: Discover the real murderer, weapon, location, and motive
+- **Performance Scoring**: Get a numerical score based on your detective skills
+- **Investigation Statistics**: Review your interrogation efficiency and findings
+- **Professional Presentation**: Case resolution with clear visual indicators
+
 ### Sample Terminal Session
 ```
 Detective > interrogate 1
@@ -121,9 +131,45 @@ CASE TIMELINE:
 
 Detective > accuse 1
 Making accusation against: Person person_0
-CONGRATULATIONS! You solved the case!
-The murderer was indeed Person person_0!
-Final Score: 85
+To complete your accusation, you need to specify:
+
+🔪 Available weapons:
+1. Weapon weapon_0
+2. Weapon weapon_1
+3. Weapon weapon_2
+4. Weapon weapon_3
+5. Weapon weapon_4 ⚠️ MURDER WEAPON
+6. Weapon weapon_5
+
+Enter weapon number: 5
+
+📍 Available locations:
+1. Location location_0
+2. Location location_1
+3. Location location_2 ⚠️ CRIME SCENE
+4. Location location_3
+5. Location location_4
+6. Location location_5
+
+Enter location number: 3
+
+🎭 CASE RESOLUTION
+============================================================
+🎉 CONGRATULATIONS! You solved the case!
+✅ Suspect: Person person_0 - CORRECT
+✅ Weapon: Weapon weapon_4 - CORRECT
+✅ Location: Location location_2 - CORRECT
+
+📊 Final Score: 120/100
+
+📈 Investigation Statistics:
+   Interrogations conducted: 2
+   Claims analyzed: 2
+   Contradictions found: 0
+   Clues discovered: 0
+============================================================
+Case closed. Thanks for playing CluedoONyourTerminal!
+============================================================
 ```
 
 ## Technical Architecture
