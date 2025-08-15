@@ -172,18 +172,77 @@ class InteractiveGame:
                 suspect_name = self.game_data['suspects'][suspect_idx]['name']
                 
                 print(f"\n🎯 Making accusation against: {suspect_name}")
-                result = self.game_engine.make_accusation(suspect_id)
+                print("To complete your accusation, you need to specify:")
                 
-                if result['correct']:
+                # Get weapon choice
+                print("\n🔪 Available weapons:")
+                for i, weapon in enumerate(self.game_data['weapons'], 1):
+                    print(f"{i}. {weapon['name']}")
+                
+                weapon_choice = input("Enter weapon number: ").strip()
+                try:
+                    weapon_idx = int(weapon_choice) - 1
+                    weapon_id = self.game_data['weapons'][weapon_idx]['id']
+                except (ValueError, IndexError):
+                    print("❌ Invalid weapon choice. Using first weapon.")
+                    weapon_id = self.game_data['weapons'][0]['id']
+                
+                # Get location choice
+                print("\n📍 Available locations:")
+                for i, location in enumerate(self.game_data['locations'], 1):
+                    print(f"{i}. {location['name']}")
+                
+                location_choice = input("Enter location number: ").strip()
+                try:
+                    location_idx = int(location_choice) - 1
+                    location_id = self.game_data['locations'][location_idx]['id']
+                except (ValueError, IndexError):
+                    print("❌ Invalid location choice. Using first location.")
+                    location_id = self.game_data['locations'][0]['id']
+                
+                # Make the accusation
+                result = self.game_engine.make_accusation(suspect_id, weapon_id, location_id)
+                
+                # Display results
+                print("\n" + "="*60)
+                print("🎭 CASE RESOLUTION")
+                print("="*60)
+                
+                if result['is_correct']:
                     print("🎉 CONGRATULATIONS! You solved the case!")
-                    print(f"The murderer was indeed {suspect_name}!")
+                    print(f"✅ Suspect: {suspect_name} - CORRECT")
+                    print(f"✅ Weapon: {self.game_data['weapons'][weapon_idx]['name']} - CORRECT")
+                    print(f"✅ Location: {self.game_data['locations'][location_idx]['name']} - CORRECT")
                 else:
                     print("❌ WRONG ACCUSATION!")
-                    print(f"{suspect_name} was innocent.")
-                    print(f"The real murderer was: {result['correct_suspect']}")
+                    print(f"❌ Suspect: {suspect_name} - INCORRECT")
+                    print(f"❌ Weapon: {self.game_data['weapons'][weapon_idx]['name']} - INCORRECT")
+                    print(f"❌ Location: {self.game_data['locations'][location_idx]['name']} - INCORRECT")
                     
-                print(f"Final Score: {result['score']}")
+                    # Show correct answers
+                    correct = result['correct_answer']
+                    print(f"\n🔍 THE TRUTH:")
+                    print(f"✅ Real murderer: {correct['murderer']}")
+                    print(f"✅ Real weapon: {correct['weapon']}")
+                    print(f"✅ Real location: {correct['location']}")
+                    print(f"✅ Motive: {correct['motive']}")
+                
+                print(f"\n📊 Final Score: {result['score']}/100")
+                
+                # Show game statistics
+                if 'game_stats' in result:
+                    stats = result['game_stats']
+                    print(f"\n📈 Investigation Statistics:")
+                    print(f"   Interrogations conducted: {stats.get('interrogation_count', 0)}")
+                    print(f"   Claims analyzed: {stats.get('total_claims', 0)}")
+                    print(f"   Contradictions found: {stats.get('contradictions', 0)}")
+                    print(f"   Clues discovered: {stats.get('clues_discovered', 0)}")
+                
+                print("\n" + "="*60)
+                print("Case closed. Thanks for playing CluedoONyourTerminal!")
+                print("="*60)
                 print()
+                
             else:
                 print("❌ Invalid suspect number!")
         except ValueError:
