@@ -171,6 +171,9 @@ Enter location number: 3
 Case closed. Thanks for playing CluedoONyourTerminal!
 ============================================================
 ```
+<img width="2220" height="1910" alt="image" src="https://github.com/user-attachments/assets/5e802b0d-91a6-4a76-98b5-f218291b73a1" />
+<img width="2314" height="1790" alt="image" src="https://github.com/user-attachments/assets/bc143a3c-538d-4702-8fcb-ffad56095b36" />
+
 
 ## Technical Architecture
 
